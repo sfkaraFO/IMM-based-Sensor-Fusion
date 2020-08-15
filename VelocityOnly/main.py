@@ -1,3 +1,4 @@
+# Velocity only measurements
 # from filterpy.stats import plot_covariance_ellipse
 import matplotlib.pyplot as plt
 plt.rcParams['pdf.fonttype'] = 42
