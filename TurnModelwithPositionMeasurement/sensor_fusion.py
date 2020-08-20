@@ -36,10 +36,10 @@ class KalmanFilter(object):
 
 
 
-def KalmanFusion(yD, yT1, yT2, sys):
+def KalmanFusion(yD, yT1, yT2, yP, sys):
 
     x0 = np.array([[0],[0]])
-    P0 = np.array([[100,0],[0,100]]) 
+    P0 = np.array([[1,0],[0,100]]) 
     x = x0
     P = P0
     xs, cov = [], []
@@ -51,10 +51,11 @@ def KalmanFusion(yD, yT1, yT2, sys):
         # predict
         dt = 0.1
         x,P = KF.TimeUpdate(dt,sys,x,P)
-        
-        z = np.array([[yD[1][i]],[yT1[1][i]],[yT2[1][i]]])
-        H = sys.Htotal
-        R = sys.Rtotal
+
+        z = np.array([[yD[1][i]],[yT1[1][i]],[yT2[1][i]],[yP[1][i]]])        
+        # z = np.array([[yP[1][i]]])
+        H = sys.Htotal2
+        R = sys.Rtotal2
         
         #update
         x,P = KF.MeasUpdate(x,P,z,H,R)
